@@ -2,162 +2,329 @@
 
 > **Turn Your Business Data Into Smarter Decisions.**
 
-VyaparAI turns the sales and stock records of a small retailer into answers: what to reorder, which products lose money, where discounts leak profit, what demand will look like next week, and which records need a second look. It runs **entirely on your own computer, in Indian rupees (₹), with no paid service of any kind**: no OpenAI/Anthropic/Gemini key, no cloud database, no hosting fee.
+<div align="center">
 
-* Charts, forecasts, anomaly detection and recommendations are plain Python and scikit-learn. They work with **no language model at all**.
-* The conversational AI analyst uses a **free open-weight model running locally** (Ollama, or a Hugging Face model). If none is installed it falls back to clearly labelled template answers built from the same calculated numbers.
+<img src="assets/logo.svg" alt="VyaparAI logo" width="96" />
 
-> **All demo data is synthetic** (a fictional Indian kirana store). No result shown with the demo data is a real business result.
+# VyaparAI
 
-## The business problem
+### The AI Business Copilot for Small Businesses
+**Turn your business data into smarter decisions.**
 
-Small shops record sales and stock but rarely see the whole picture: a best-seller quietly stocks out, a product sells below cost after a supplier price rise, heavy discounts erase margin, cash sits in goods that do not sell, and a typo in a bill goes unnoticed. VyaparAI calculates these things deterministically and explains them in plain language.
 
-## Features
+<img width="1912" height="1022" alt="1" src="https://github.com/user-attachments/assets/7ecccf60-7523-42df-a0e0-b55b47c34e24" />
 
-| Section | What it does |
+
+![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?logo=scikitlearn&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-local%20DB-003B57?logo=sqlite&logoColor=white)
+![Currency](https://img.shields.io/badge/Currency-%E2%82%B9%20INR-14b8a6)
+![Cost](https://img.shields.io/badge/Cost-%E2%82%B90%20forever-22c55e)
+![Tests](https://img.shields.io/badge/tests-139%20passing-22c55e)
+
+[Quick start](#-quick-start-5-minutes) ·
+[Use your own CSV](#-use-your-own-data) ·
+[Features](#-what-you-get) ·
+[AI analyst](#-ai-business-analyst-free-local-model) ·
+[Troubleshooting](#-troubleshooting)
+
+</div>
+
+---
+
+## 👋 What is VyaparAI?
+
+Most small shops write down every sale and every stock count, yet still get surprised: a best-seller runs out, a product quietly sells **below cost**, discounts eat the margin, cash is stuck in goods nobody buys.
+
+**VyaparAI reads your sales and stock files and tells you, in plain language:**
+
+| 🛒 You ask | 💡 VyaparAI answers |
 |---|---|
-| **Overview** | Revenue, cost of goods sold, **gross** profit and margin, units, low-stock and slow-moving counts, stock value, anomaly count; trends, top products, categories, alerts, ranked recommendations; date and category filters |
-| **Sales Analytics** | Daily/weekly/monthly trends, product and category rankings, quantity-vs-revenue, discount analysis, period-over-period comparison, declining products, CSV export |
-| **Inventory Intelligence** | Reorder point and safety stock, suggested order quantity (accounts for stock on order), stock-out risk, slow / dead / excess stock, promotion candidates, stock reconciliation, editable thresholds |
-| **Demand Forecasting** | 7 or 30-day daily forecasts: recent-average and weekly-seasonal baselines vs a Random Forest, time-based validation, MAE/WAPE, honest model selection |
-| **Profit Leakage Detection** | Data-quality problems, statistical anomalies and business risks kept separate, with severity, expected value, explanation and next step; Isolation Forest as an extra signal |
-| **AI Business Analyst** | Ask questions in plain language. Numbers come from validated read-only Python tools; the model only words the result |
-| **Data Management** | Upload CSVs, map columns, validation report, rejected-row download, demo reset, sample files |
-| **Settings and Model Status** | Data source, data quality, Ollama/Hugging Face status, forecast models used, degraded modes, thresholds, backup |
+| What should I reorder this week? | Exact products and quantities, with the reason |
+| Which products lose me money? | Items whose gross profit is negative, and why |
+| Where do my discounts hurt? | Discount levels that erase the margin |
+| How much will I sell next week? | 7 or 30 day forecast with an honest accuracy check |
+| Is anything strange in my records? | Flagged bills and prices that need a second look |
 
-## Architecture
+### 🆓 Free, private, rupee-first
 
-```
-CSV upload / demo data
-        |
- src/data   validator -> loader -> repository (SQLite, parameterised queries)
-        |
- src/analytics  profitability (single source of truth for revenue/COGS/gross profit)
-                sales, inventory, recommendations, pipeline
- src/ml         forecasting, evaluation, anomaly_detection
-        |
- src/genai      business_tools (10 validated read-only tools)
-                analyst (route -> run tools -> LLM words FACTS, or template fallback)
-                ollama_client (Ollama + optional Hugging Face)
-        |
- src/ui + pages/   Streamlit pages (cached; models are not retrained on every rerun)
-```
+- 💰 **Every amount is in ₹**, grouped the Indian way (₹12,34,567 · ₹1.30 Cr).
+- 🔒 **Runs on your own computer.** Your data never leaves it.
+- 🧾 **No paid service.** No OpenAI, no Anthropic, no Gemini, no API keys, no cloud database, no hosting fee.
+- 🧠 **The AI chat uses a free open-weight model** (Ollama or Hugging Face) running locally. Without one, the chat still works using clearly labelled template answers.
 
-UI, data access, business logic, ML and GenAI are separate layers. Every page uses the same functions, so a number is calculated in exactly one place.
+> ⚠️ **The built-in demo data is synthetic** (a fictional Indian kirana store). Nothing you see with it is a real business result.
 
-## Technology stack (all free and open source)
+---
 
-Python 3.11+ · Streamlit · Pandas / NumPy · Plotly · scikit-learn (Random Forest, Isolation Forest) · SQLite · pytest · Ollama *or* Hugging Face `transformers` (optional).
+## 🚀 Quick start (5 minutes)
 
-## Prerequisites
+**You need:** Python 3.11 or newer and about 1 GB of disk space.
 
-* Python 3.11 or newer
-* About 1 GB free disk for the app and dependencies, plus **2–5 GB if you add a local language model** (optional)
-* 8 GB RAM recommended for the 3B model; smaller models work with less
+<details open>
+<summary><b>🪟 Windows (PowerShell)</b></summary>
 
-## Installation
-
-**Windows (PowerShell)**
 ```powershell
 cd vyaparai
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+streamlit run app.py
 ```
+</details>
 
-**Linux / macOS**
+<details>
+<summary><b>🐧 Linux / 🍎 macOS</b></summary>
+
 ```bash
 cd vyaparai
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-```
-
-Optionally copy `.env.example` to `.env` to change settings. No keys are needed.
-
-## Run the app
-
-```bash
 streamlit run app.py
 ```
-Open http://localhost:8501. The synthetic demo data loads automatically on first start (once; restarts do not duplicate it). The sidebar always shows whether you are looking at **Demo data** or **Your uploaded data**.
+</details>
 
-## Free local language model (optional)
+Then open **http://localhost:8501**. Demo data loads by itself on the first start (and only once). The sidebar always tells you whether you are looking at **Demo data** or **Your uploaded data**.
 
-The app works without this. Add it for conversational answers. The model is **not bundled**: you download it separately (a few GB).
+> 💡 Optional: copy `.env.example` to `.env` to change settings. No keys are needed.
 
-### Option A: Ollama (recommended)
-1. Install Ollama (free) from https://ollama.com.
-2. Download a model and make sure the server is running:
-   ```bash
-   ollama pull llama3.2:3b      # about 2 GB; try llama3.2:1b or qwen2.5:1.5b on low-RAM machines
-   ollama serve                 # skip if the Ollama desktop app is already running
-   ```
-3. Reload the **AI Business Analyst** page. The badge turns green and shows the model name. To use another model, set `OLLAMA_MODEL` in `.env`.
+---
 
-### Option B: Hugging Face model, run locally (no Ollama)
+## 📂 Use your own data
+
+<img width="1918" height="1027" alt="3" src="https://github.com/user-attachments/assets/7d1a0729-6226-4726-8ad6-37343cd069e0" />
+
+
+> **Short version:** open **Data Management** in the sidebar → upload your CSV → check the column matching → confirm.
+
+### Step by step
+
+| # | Do this | What happens |
+|:-:|---|---|
+| 1️⃣ | Export your sales (and optionally stock and purchases) as **CSV** from your billing software or Excel | |
+| 2️⃣ | Open **Data Management → Upload CSV files** | |
+| 3️⃣ | Choose your file(s) | Column names are matched automatically (`Qty`, `Rate`, `SKU`, `Bill Date` …) |
+| 4️⃣ | Fix any wrong match from the dropdowns | |
+| 5️⃣ | Read the **validation report** | Bad rows are listed with a reason and can be downloaded, never silently dropped |
+| 6️⃣ | Confirm | Your data becomes the active dataset in every page. Demo data stays safely separate |
+
+### Which files do I need?
+
+| File | Needed? | Unlocks |
+|---|---|---|
+| 🧾 **Sales** | ✅ Required | Revenue, profit, trends, discounts, forecasts, anomalies |
+| 📦 **Inventory** | Optional | Reorder points, stock-out risk, slow and dead stock |
+| 🚚 **Purchases** | Optional | Stock already on order (avoids double-ordering) |
+
+### Minimum columns in the sales file
+
+| Column | Example | Notes |
+|---|---|---|
+| `transaction_date` | `2026-01-05` or `05/01/2026` | Day-first dates are read as day/month/year |
+| `product_id` | `SKU-1042` | Your item code |
+| `quantity` | `3` | **Negative = customer return** |
+| `unit_price` | `₹ 1,250` | In rupees, before discount. `₹`, `Rs` and commas are cleaned automatically |
+
+**Nice to have:** `unit_cost` (needed for profit and margin; leave blank if unknown), `discount` (a percentage, 0–100), `total_amount`, `product_name`, `category`, `payment_method`, `transaction_id`.
+
+**Inventory file:** `product_id` and `current_stock` are required. `reorder_level`, `supplier_lead_time_days`, `unit_cost` are optional.
+**Purchases file:** `purchase_date`, `product_id`, `quantity_purchased` are required. Dates after your last sale count as *stock on order*.
+
+📖 Full column list: [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md). Want a template? **Data Management** has a button to download the demo CSVs; copy their headers.
+
+### Good to know
+
+- 🧮 An **unknown cost is never treated as zero.** It is estimated from inventory cost (and flagged) or left out of margin figures. The app shows how much of your revenue has a known cost.
+- 🔁 **Exact duplicate lines** are flagged and excluded from the numbers.
+- 📏 Files up to **50 MB** are accepted (change `maxUploadSize` in `.streamlit/config.toml`).
+- 📈 Forecasts need about **28 days** of sales history per product.
+
+---
+
+## ✨ What you get
+
+The sidebar has 8 sections:
+
+| | Section | What it does |
+|:-:|---|---|
+| 🏠 | **Overview** | Revenue, cost of goods, **gross** profit and margin, low-stock and slow-moving counts, stock value, anomaly count, trends, top products, alerts and ranked recommendations |
+| 📊 | **Sales Analytics** | Daily, weekly, monthly trends, product and category rankings, discount analysis, period comparison, declining products, CSV export |
+| 📦 | **Inventory Intelligence** | Reorder point, safety stock, suggested order quantity, stock-out risk, slow, dead and excess stock, promotion candidates, editable thresholds |
+| 🔮 | **Demand Forecasting** | 7 or 30 day forecasts. Two simple baselines compete against a Random Forest; the ML model is used only if it clearly wins |
+| 🕵️ | **Profit Leakage Detection** | Data errors, statistical oddities and business risks, each with severity, the expected value and a next step |
+| 🤖 | **AI Business Analyst** | Ask in plain English. Numbers come from code, the model only words them |
+| 🗂️ | **Data Management** | Upload, column mapping, validation report, rejected rows, reset to demo |
+| ⚙️ | **Settings & Model Status** | Data quality, AI model status, thresholds, backup |
+
+---
+
+## 🤖 AI Business Analyst (free local model)
+
+<img width="1912" height="966" alt="2" src="https://github.com/user-attachments/assets/bb7ae9f7-8d3e-4637-8586-f54bf671190f" />
+
+
+The app **works fully without this**. Add it only if you want conversational answers. The model is not bundled; you download it once.
+
+### Option A · Ollama (recommended)
+
+```bash
+# 1. Install Ollama (free) from https://ollama.com
+# 2. Download a model (about 2 GB)
+ollama pull llama3.2:3b          # low RAM? try llama3.2:1b or qwen2.5:1.5b
+# 3. Start the server (skip if the Ollama desktop app is already running)
+ollama serve
+```
+Reload the **AI Business Analyst** page. The badge turns green and shows the model name. To use a different model, set `OLLAMA_MODEL` in `.env`.
+
+### Option B · Hugging Face model, run locally
+
 ```bash
 pip install -r requirements-hf.txt
 ```
-Set `VYAPARAI_LLM_BACKEND=huggingface` (optional) and `HF_MODEL` in `.env`. The default `Qwen/Qwen2.5-0.5B-Instruct` is a small free model downloaded once from the Hugging Face Hub (public models need no account or token); it is fast on CPU but less fluent than a 3B model.
+In `.env` set `VYAPARAI_LLM_BACKEND=huggingface`. The default `Qwen/Qwen2.5-0.5B-Instruct` is small and free (public models need no account or token). It is fast on a CPU but less fluent than a 3B model.
 
-### How the analyst stays honest
-1. The question is routed to a small, fixed set of **read-only tools** (the model cannot run SQL, Python or shell commands, change stock or place orders). Tool arguments are validated; unknown tools or arguments are rejected.
-2. The tools return calculated facts with the period covered and a label: observed, estimate or recommendation.
-3. The model only phrases those facts. A **grounding check** flags any number in its answer that is not in the facts, and the exact data used is shown under every answer.
-4. If the model is offline, missing or times out, a **Fallback mode** answer is generated from templates and labelled as such.
+### 🛡️ Why you can trust the answers
 
-## Load demo data / upload your own
+```mermaid
+flowchart LR
+    Q[Your question] --> R[Route to a fixed<br/>read-only tool]
+    R --> T[Tool calculates facts<br/>from your data]
+    T --> L{Language model<br/>available?}
+    L -- yes --> W[Model words the facts]
+    L -- no --> F[Template answer<br/>labelled Fallback mode]
+    W --> G[Grounding check:<br/>flag any number not in the facts]
+    G --> A[Answer + the exact data used]
+    F --> A
+```
 
-* **Demo data:** loaded automatically. **Data Management → Reset to demo data** reloads it. The generator is `python scripts/generate_demo_data.py` (fixed seed). See `docs/DEMO_SCENARIOS.md` for the planted problems and `docs/DATA_DICTIONARY.md` for columns.
-* **Your data:** **Data Management → Upload CSV files**. Provide a sales file; inventory and purchases files are optional but unlock inventory features. Headers are matched automatically (`Qty`, `Rate`, `SKU`, `Bill Date`...), and you can fix the mapping. After validation your data becomes the active dataset; the demo data is kept separately and untouched.
-* Problem rows are **never silently discarded**: unreadable rows are listed with a reason (and downloadable), suspicious rows are kept and flagged, and the report explains how each issue affects the analysis. Discounts are percentages by default (a rupee-amount option exists). Dates like `05/01/2026` are read **day-first**.
+1. The model **cannot run SQL, code or commands**, change stock or place orders. It can only call 10 fixed read-only tools, and their arguments are validated.
+2. Every number comes from calculated data, labelled *observed*, *estimate* or *recommendation*.
+3. Numbers in the answer that are not in the data are **flagged**.
+4. The exact data used is shown under every answer.
 
-## Run the tests
+---
+
+## 🧠 How it works
+
+```mermaid
+flowchart TD
+    A[CSV upload or demo data] --> B[src/data<br/>validate · load · SQLite]
+    B --> C[src/analytics<br/>profit · sales · inventory · recommendations]
+    B --> D[src/ml<br/>forecasting · anomaly detection]
+    C --> E[src/genai<br/>10 read-only tools · analyst]
+    D --> E
+    C --> F[pages/ · Streamlit UI]
+    D --> F
+    E --> F
+```
+
+UI, data access, business logic, ML and AI are separate layers. Every page calls the same functions, so each number is calculated in exactly one place.
+
+<details>
+<summary><b>📁 Project layout</b></summary>
+
+```
+vyaparai/
+├── app.py                  Streamlit entry point (sidebar navigation)
+├── config.py               Settings and business-rule thresholds
+├── pages/                  The 8 app sections
+├── src/
+│   ├── data/               validator, loader, SQLite repository, demo generator
+│   ├── analytics/          profitability, sales, inventory, recommendations
+│   ├── ml/                 forecasting, evaluation, anomaly detection
+│   ├── genai/              business tools, analyst, Ollama / Hugging Face clients
+│   ├── ui/                 theme, shared components, cached state
+│   └── utils/              rupee formatting, date parsing, logging
+├── data/                   demo CSVs (database is created here on first run)
+├── docs/                   data dictionary, demo scenarios, hackathon pitch
+├── scripts/                demo data generator
+└── tests/                  139 automated tests
+```
+</details>
+
+<details>
+<summary><b>🧰 Technology (all free and open source)</b></summary>
+
+Python 3.11+ · Streamlit · Pandas · NumPy · Plotly · scikit-learn (Random Forest, Isolation Forest) · SQLite · pytest · Ollama *or* Hugging Face `transformers` (optional).
+</details>
+
+### 📐 Key definitions
+
+| Term | Meaning |
+|---|---|
+| **Revenue** | Recorded line total after discount; returns count as negative |
+| **Gross profit** | Revenue − cost of goods sold. **Not net profit**: rent, salaries and other costs are not in the data |
+| **Gross margin %** | Gross profit ÷ revenue of items with a known cost × 100 |
+| **Safety stock** | z × std. dev. of daily demand × √lead time |
+| **Reorder point** | Demand during supplier lead time + safety stock |
+| **Suggested order** | Order-up-to level − stock on hand − stock on order (never below zero) |
+| **Exposure** | An *estimate* of money at risk, with overlaps counted once. Not a promised saving |
+
+---
+
+## 🧪 Run the tests
 
 ```bash
-pip install -r requirements.txt
 python -m pytest
 ```
-The suite (139 tests) covers validation, revenue/gross-profit/discount maths, reorder and stock-out logic, forecast features and time-based validation, leakage guards, anomaly detection, recommendation ranking and de-duplication, tool-argument validation, and behaviour when Ollama is unavailable (mocked HTTP). Tests do not need Ollama or internet access.
+139 tests cover validation, profit maths, reorder logic, forecast validation, leakage guards, anomaly detection, recommendations, tool validation and the no-Ollama fallback. They need no internet and no language model.
 
-## Key definitions
+---
 
-* **Gross profit** = revenue − cost of goods sold. It is **not net profit**: rent, salaries and other overheads are not in the data.
-* **Reorder point** = demand during supplier lead time + safety stock; **safety stock** = z × std(daily demand) × √lead time; **suggested order** = order-up-to level − stock − stock on order, never below zero.
-* **Unknown costs** are never treated as zero: they are estimated from inventory cost (flagged) or excluded from margin figures.
-* **Exposure figures** in recommendations are labelled estimates with their calculation basis, with overlapping items counted once. They are not promised savings.
+## 🗄️ Database
 
-## Database
+A local SQLite file at `data/vyaparai.db`, created on first run. Demo and uploaded rows share the tables and are separated by a `dataset` column.
 
-SQLite file `data/vyaparai.db` (created on first run). Tables: `sales`, `inventory`, `purchases`, `rejected_rows`, `dataset_meta`, `app_config`, `analysis_runs`, `forecast_meta`. Demo and uploaded rows live in the same tables, separated by a `dataset` column.
-* **Initialise:** automatic. **Reset:** Settings → *Erase ALL stored data* (asks for confirmation), or delete the file. **Back up:** Settings → *Create backup* (writes to `data/backups/`) or copy the file while the app is stopped.
-
-## Troubleshooting
-
-| Symptom | Fix |
+| Want to… | Do this |
 |---|---|
-| AI Analyst says *Fallback mode* | Ollama is not running or the model is not pulled. Run `ollama serve` and `ollama pull llama3.2:3b`; check Settings → Model status |
-| Model is slow or times out | Use a smaller model (`llama3.2:1b`), or raise `VYAPARAI_LLM_TIMEOUT` |
-| `ModuleNotFoundError` | Activate the virtual environment and run `pip install -r requirements.txt` |
-| Everything looks stale after replacing the DB file | Restart the app (analyses are cached) |
-| Forecast says "not enough history" | Needs 28+ days of sales (about 12 weeks for ML validation) and regular sales |
-| Upload rows rejected | Open the validation report; download the rejected rows, fix them and upload again |
-| Port 8501 in use | `streamlit run app.py --server.port 8502` |
+| Back up | **Settings → Create backup** (saved in `data/backups/`) |
+| Start fresh | **Settings → Erase ALL stored data** (asks to confirm), or delete the file |
+| Reload demo data | **Data Management → Reset to demo data** |
 
-## Model limitations
+---
 
-* Forecasts are **estimates, not guarantees**. With about a year of data the model cannot learn year-on-year seasonality; festivals, promotions and price changes are not modelled. Days when an item was out of stock look like zero demand. Accuracy is measured on a backtest of recent weeks and can be worse in new conditions. ML is used only where it beats a simple baseline.
-* Anomalies are **statistical flags that need review**, not evidence of fraud. Many are legitimate (bulk orders, price changes).
-* Inventory recommendations rest on recent sales; they do not know about supplier minimums, shelf life, cash limits or upcoming events.
-* Small local language models can phrase things imperfectly. That is why numbers come from code, the facts are shown, and ungrounded numbers are flagged.
-* Reorder suggestions are suggestions only. VyaparAI never changes inventory or buys anything.
+## 🩺 Troubleshooting
 
-## Privacy
+| Problem | Fix |
+|---|---|
+| Chat says **Fallback mode** | Ollama is not running or no model is pulled. Run `ollama serve` and `ollama pull llama3.2:3b`, then check **Settings → Model status** |
+| AI is slow or times out | Use a smaller model (`llama3.2:1b`) or raise `VYAPARAI_LLM_TIMEOUT` in `.env` |
+| `ModuleNotFoundError` | Activate the virtual environment, then `pip install -r requirements.txt` |
+| Rows rejected on upload | Open the validation report, download the rejected rows, fix them, upload again |
+| Forecast says "not enough history" | Needs 28+ days of sales (about 12 weeks for ML validation) |
+| Numbers look stale after replacing the DB file | Restart the app (analyses are cached) |
+| Port 8501 is busy | `streamlit run app.py --server.port 8502` |
 
-All data stays on your computer in a local SQLite file. Nothing is sent to any cloud service; Ollama and Hugging Face models run locally (the Hugging Face model *download* contacts huggingface.co once). The app has **no login**: it is built for a single user on a trusted machine. Do not expose it on a public network without adding proper authentication and authorisation. Logs never contain data rows or prompts.
+---
 
-## Hackathon demonstration
+## ⚖️ Honest limitations
 
-See `docs/HACKATHON_PITCH.md` for the pitch, a 3-minute demo script and judge Q&A.
+- 🔮 Forecasts are **estimates, not guarantees**. Festivals, promotions and price changes are not modelled, and days when an item was out of stock look like zero demand.
+- 🚩 Anomalies are **flags for review, not proof of fraud**. Many are legitimate (bulk orders, price changes).
+- 📦 Reorder advice is based on recent sales. It does not know supplier minimums, shelf life or your cash limit. VyaparAI never changes stock or buys anything.
+- 💬 Small local language models can phrase things imperfectly. That is why numbers come from code and are shown beside every answer.
+- 🧪 The Ollama and Hugging Face paths are covered by mocked tests; try the chat once on your own machine.
+
+## 🔐 Privacy and security
+
+All data stays on your computer. Nothing is sent to a cloud service (the one-time Hugging Face model *download* contacts huggingface.co). Logs never contain data rows or prompts.
+
+The app has **no login**. It is built for one user on a trusted machine. Do not put it on a public network without adding authentication.
+
+---
+
+## 📚 More documentation
+
+| Document | What's inside |
+|---|---|
+| [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md) | Every column, type and meaning |
+| [`docs/DEMO_SCENARIOS.md`](docs/DEMO_SCENARIOS.md) | The problems planted in the demo data and where to find them |
+| [`docs/HACKATHON_PITCH.md`](docs/HACKATHON_PITCH.md) | Pitch, 3-minute demo script, judge Q&A |
+
+<div align="center">
+
+**Made for the dukaandaar who knows the shop, and wants the numbers to keep up.**
+
+</div>
