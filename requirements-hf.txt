@@ -1,0 +1,4 @@
+# Optional: run a free open-weight model from the Hugging Face Hub locally (alternative to Ollama).
+transformers>=4.44
+torch>=2.2
+accelerate>=0.33

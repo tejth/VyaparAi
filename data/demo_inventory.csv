@@ -1,0 +1,76 @@
+product_id,product_name,category,current_stock,reorder_level,supplier_lead_time_days,unit_cost,selling_price,last_sale_date
+P001,Aashirvaad Atta 5kg,Staples,0,27,3,226.74,246.0,2026-09-12
+P002,Fortune Chakki Atta 10kg,Staples,26,18,3,416.57,448.0,2026-09-30
+P003,India Gate Basmati Rice 5kg,Staples,74,17,4,590.58,647.0,2026-09-30
+P004,Sona Masoori Rice 25kg,Staples,27,10,4,1244.43,1327.0,2026-09-29
+P005,Tata Salt 1kg,Staples,0,27,2,22.15,25.0,2026-09-14
+P006,Madhur Sugar 1kg,Staples,139,24,2,43.24,45.0,2026-09-30
+P007,Toor Dal 1kg,Pulses,0,15,3,134.99,148.0,2026-09-17
+P008,Moong Dal 1kg,Pulses,68,13,3,118.12,130.0,2026-09-30
+P009,Chana Dal 1kg,Pulses,69,14,3,86.48,96.0,2026-09-30
+P010,Masoor Dal 1kg,Pulses,14,12,3,90.7,99.0,2026-09-30
+P011,Rajma 1kg,Pulses,21,7,3,124.44,139.0,2026-09-30
+P012,Kabuli Chana 1kg,Pulses,12,7,3,139.21,153.0,2026-09-28
+P013,Fortune Sunflower Oil 1L,Edible Oils,85,30,3,164.69,138.0,2026-09-30
+P014,Saffola Gold Oil 1L,Edible Oils,81,14,3,184.56,199.0,2026-09-30
+P015,Kachi Ghani Mustard Oil 1L,Edible Oils,37,17,3,156.08,170.0,2026-09-30
+P016,Dhara Groundnut Oil 1L,Edible Oils,27,11,4,221.47,238.0,2026-09-29
+P017,Fortune Soya Oil 1L,Edible Oils,0,18,3,124.44,133.0,2026-09-13
+P018,Patanjali Cow Ghee 1kg,Edible Oils,65,13,4,590.58,647.0,2026-09-30
+P019,Amul Butter 500g,Dairy & Bakery,0,12,2,276.31,295.0,2026-08-30
+P020,Amul Gold Milk 1L,Dairy & Bakery,150,22,1,65.39,68.0,2026-09-30
+P021,Mother Dairy Paneer 200g,Dairy & Bakery,91,9,1,82.26,92.0,2026-09-30
+P022,Amul Cheese Slices 200g,Dairy & Bakery,75,9,2,124.44,136.0,2026-09-30
+P023,Britannia Bread 400g,Dairy & Bakery,88,14,1,37.97,41.0,2026-09-30
+P024,Amul Masti Dahi 400g,Dairy & Bakery,158,10,1,35.86,39.0,2026-09-30
+P025,Eggs Tray 12 pcs,Dairy & Bakery,55,10,1,82.26,89.0,2026-09-30
+P026,Maggi Masala Noodles 4-pack,Snacks & Confectionery,0,34,3,65.39,72.0,2026-09-15
+P027,Parle-G Biscuits 250g,Snacks & Confectionery,235,54,3,21.09,24.0,2026-09-30
+P028,Britannia Good Day 200g,Snacks & Confectionery,174,30,3,40.07,44.0,2026-09-30
+P029,Haldiram Bhujia 400g,Snacks & Confectionery,22,22,4,110.73,127.0,2026-09-30
+P030,Lays Classic Salted 52g,Snacks & Confectionery,254,44,3,18.98,22.0,2026-09-30
+P031,Kurkure Masala Munch 90g,Snacks & Confectionery,76,37,3,18.98,22.0,2026-09-30
+P032,Sunfeast Dark Fantasy 300g,Snacks & Confectionery,7,14,3,103.35,116.0,2026-09-30
+P033,Haldiram Soan Papdi 500g,Snacks & Confectionery,60,14,4,200.37,236.0,2026-09-30
+P034,Cadbury Dairy Milk 50g,Snacks & Confectionery,120,27,3,37.97,42.0,2026-09-30
+P035,Tata Tea Gold 1kg,Beverages,49,14,3,506.21,550.0,2026-09-30
+P036,Red Label Tea 500g,Beverages,29,15,3,258.38,280.0,2026-09-30
+P037,Nescafe Classic 100g,Beverages,42,14,4,311.11,347.0,2026-09-30
+P038,Bru Instant Coffee 100g,Beverages,4,12,4,232.01,256.0,2026-09-30
+P039,Coca-Cola 2L,Beverages,91,12,2,89.64,98.0,2026-09-30
+P040,Thums Up 750ml,Beverages,0,17,2,42.18,46.0,2026-09-07
+P041,Frooti Mango 1L,Beverages,142,14,2,65.39,72.0,2026-09-30
+P042,Real Fruit Juice 1L,Beverages,61,13,3,103.35,115.0,2026-09-30
+P043,Bisleri Water 1L,Beverages,567,47,2,15.82,19.0,2026-09-30
+P044,Horlicks 500g,Beverages,12,12,4,268.92,295.0,2026-09-30
+P045,Dettol Soap 3-pack,Personal Care,50,15,3,118.12,134.0,2026-09-30
+P046,Lux Soap 4-pack,Personal Care,85,15,3,124.44,141.0,2026-09-30
+P047,Colgate MaxFresh 150g,Personal Care,21,22,3,97.02,109.0,2026-09-30
+P048,Clinic Plus Shampoo 340ml,Personal Care,40,14,4,198.26,228.0,2026-09-30
+P049,Head & Shoulders 340ml,Personal Care,15,10,4,307.94,350.0,2026-09-30
+P050,Parachute Coconut Oil 500ml,Personal Care,14,15,3,177.17,198.0,2026-09-29
+P051,Vaseline Body Lotion 400ml,Personal Care,16,9,4,258.38,296.0,2026-09-30
+P052,Whisper Ultra Pads 20s,Personal Care,53,13,4,177.17,200.0,2026-09-30
+P053,Surf Excel Easy Wash 1kg,Household,0,17,3,208.81,231.0,2026-09-10
+P054,Vim Dishwash Liquid 500ml,Household,37,15,3,103.35,117.0,2026-09-30
+P055,Harpic Toilet Cleaner 1L,Household,54,14,4,177.17,201.0,2026-09-30
+P056,Lizol Floor Cleaner 1L,Household,15,12,4,205.65,236.0,2026-09-29
+P057,Good Knight Refill 45ml,Household,3,14,3,82.26,94.0,2026-09-30
+P058,Comfort Fabric Conditioner 860ml,Household,31,9,4,205.65,236.0,2026-09-29
+P059,Garbage Bags 30 pcs,Household,22,10,4,100.19,119.0,2026-09-30
+P060,Everest Turmeric Powder 200g,Spices,21,14,3,65.39,77.0,2026-09-30
+P061,Everest Chilli Powder 200g,Spices,38,13,3,82.26,97.0,2026-09-30
+P062,MDH Garam Masala 100g,Spices,18,12,3,89.64,105.0,2026-09-30
+P063,Catch Cumin Seeds 100g,Spices,39,10,3,75.93,90.0,2026-09-30
+P064,Everest Chaat Masala 100g,Spices,32,9,3,71.71,84.0,2026-09-30
+P065,Kashmiri Saffron 1g,Spices,9,4,5,200.37,249.0,2026-09-29
+P066,California Almonds 250g,Dry Fruits,8,9,4,258.38,299.0,2026-09-29
+P067,Cashew Nuts 250g,Dry Fruits,17,9,4,300.56,347.0,2026-09-28
+P068,Raisins 250g,Dry Fruits,9,10,4,86.48,102.0,2026-09-30
+P069,Dates 500g,Dry Fruits,30,9,4,174.01,200.0,2026-09-30
+P070,Walnut Kernels 250g,Dry Fruits,9,6,5,326.93,375.0,2026-09-29
+P071,Quinoa 500g,Gourmet & Health,44,7,6,253.1,308.0,2026-02-27
+P072,Chia Seeds 250g,Gourmet & Health,48,7,6,221.47,269.0,2026-04-05
+P073,Extra Virgin Olive Oil 500ml,Gourmet & Health,42,7,6,548.39,655.0,2026-05-03
+P074,Imported Penne Pasta 500g,Gourmet & Health,29,4,6,142.37,170.0,2026-09-26
+P075,Muesli Granola 500g,Gourmet & Health,19,4,6,226.74,271.0,2026-09-27
